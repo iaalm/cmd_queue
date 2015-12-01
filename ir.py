@@ -12,8 +12,10 @@ def send_task(endpoint,cmd):
     socket.send_unicode(cmd)
 
 if __name__ == '__main__':
-    msg = sys.argv[1] if len(sys.argv) > 1 else 'auto'
-    os.popen("svn up ~/ComputerVision-2.0").read()         # need read to wait for exit
+    msg = sys.argv if len(sys.argv) > 1 else ['dummy','auto']
+    msg.pop(0)
+    msg = ' '.join(msg)
+    os.system("svn up ~/ComputerVision-2.0")
     print("svn ci ~/ComputerVision-2.0 -m '%s'" % msg)
     output = os.popen("svn ci ~/ComputerVision-2.0 -m '%s'" % msg).read()
     print(output)
