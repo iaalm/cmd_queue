@@ -7,10 +7,9 @@ import re
 
 def send_task(endpoint,cmd):
     ct = zmq.Context()
-    socket = ct.socket(zmq.REQ)
+    socket = ct.socket(zmq.PUSH)
     socket.connect(endpoint)
     socket.send_unicode(cmd)
-    return socket.recv_unicode()
 
 if __name__ == '__main__':
     msg = sys.argv[1] if len(sys.argv) > 1 else 'auto'
@@ -20,4 +19,4 @@ if __name__ == '__main__':
     print(output)
     reversion = re.search('revision (\d*)',output).groups(1)[0]
     print(reversion)
-    print(send_task('tcp://192.168.1.101:5050','~/xks/bin/ir-oxford -m 25 -r %s' % reversion))
+    send_task('tcp://192.168.1.101:5050','~/xks/bin/ir-oxford -m 25 -r %s' % reversion)
