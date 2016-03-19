@@ -1,6 +1,7 @@
 #!/usr/bin/python3 
 
 import zmq
+import sys
 
 def send_task(endpoint,cmd):
     ct = zmq.Context()
@@ -9,4 +10,4 @@ def send_task(endpoint,cmd):
     socket.send_unicode(cmd)
 
 if __name__ == '__main__':
-    send_task('tcp://localhost:5050','ls')
+    send_task('tcp://localhost:5050',' '.join(sys.argv[1:]))
